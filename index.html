@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="manifest" href="./manifest.json">
-    <script type="text/javascript" src="paper-full.js" ></script>
-    <script type="text/javascript" src="howler.js" ></script>
-    <link rel="stylesheet" href="style.css">
 
-<script type="text/paperscript" canvas="myCanvas">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Play Game">
+    <meta name="apple-mobile-web-app-title" content="Play Game">
+    <meta name="msapplication-starturl" content="/index.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Load the Paper.js library -->
+    <script type="text/javascript" src="./js/paper-full.js" ></script>
+    <!-- Load the howler.js library -->
+    <script type="text/javascript" src="./js/howler.js" ></script>
+
+    <!--Load my style Sheet-->
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- Define inlined PaperScript associate it with myCanvas -->
+    <script type="text/paperscript" canvas="myCanvas">
+	// Create a Paper.js Path to draw a line into it:
+    //my code
     var keyData = {
 			q: {
 				sound: new Howl({
@@ -174,27 +190,23 @@ function onKeyDown(event) {
     var randomPoint = Point.random();
     var point = maxPoint * randomPoint;
     var newCircle= new Path.Circle(point, 500);
-    newCircle.fillColor = keyData[event.key].color;
+	newCircle.fillColor = keyData[event.key].color;
+	keyData[event.key].sound.play();
     circles.push(newCircle);
     }
 }
-function onFrame(event){
-      for(var i = 0; i < circles.length; i++){
-        circles[i].scale(0.9);
+function onFrame(event) {
+    for(var i=0 ;i < circles.length ; i++){
         circles[i].fillColor.hue += 1;
-        if(circles[i].area < 1){
-        	circles[i].remove();
-          circles.splice(i, 1);
-          console.log(circles);
-        }
-      }
-    }
+        circles[i].scale(.9);
+    };
+};
 
 
 </script>
     <title>Document</title>
 </head>
 <body>
-    <canvas id="myCanvas" resize></canvas>
+    <canvas id="myCanvas"></canvas>
 </body>
 </html>
